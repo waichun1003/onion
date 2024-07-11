@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.coreonion.mapper.MatchMapper">
+    <resultMap id="MatchResultMap" type="com.example.coreonion.model.Match">
+        <id column="match_id" property="matchId"/>
+        <result column="coachee_id" property="coacheeId"/>
+        <result column="coach_id" property="coachId"/>
+        <result column="score" property="score"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <select id="findMatchesByCoacheeId" resultMap="MatchResultMap">
+        SELECT * FROM Matches WHERE coachee_id = #{coacheeId}
+    </select>
+
+    <insert id="insertMatch">
+        INSERT INTO Matches (coachee_id, coach_id, score, created_at, updated_at)
+        VALUES (#{coacheeId}, #{coachId}, #{score}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <select id="findRecommendationsByCoacheeId" resultMap="MatchResultMap">
+        SELECT * FROM Matches WHERE coachee_id = #{coacheeId} ORDER BY score DESC LIMIT 5
+    </select>
+</mapper>

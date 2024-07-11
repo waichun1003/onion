@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.coreonion.mapper.ContentMapper">
+    <resultMap id="ContentResultMap" type="com.example.coreonion.model.Content">
+        <id column="content_id" property="contentId"/>
+        <result column="type" property="type"/>
+        <result column="title" property="title"/>
+        <result column="description" property="description"/>
+        <result column="url" property="url"/>
+        <result column="coach_id" property="coachId"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <select id="findContentById" resultMap="ContentResultMap">
+        SELECT * FROM Contents WHERE content_id = #{contentId}
+    </select>
+
+    <insert id="insertContent">
+        INSERT INTO Contents (type, title, description, url, coach_id, created_at, updated_at)
+        VALUES (#{type}, #{title}, #{description}, #{url}, #{coachId}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <select id="searchContent" resultMap="ContentResultMap">
+        SELECT * FROM Contents WHERE title LIKE CONCAT('%', #{query}, '%') OR description LIKE CONCAT('%', #{query}, '%')
+    </select>
+</mapper>

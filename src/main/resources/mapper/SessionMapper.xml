@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.coreonion.mapper.SessionMapper">
+    <resultMap id="SessionResultMap" type="com.example.coreonion.model.Session">
+        <id column="session_id" property="sessionId"/>
+        <result column="coach_id" property="coachId"/>
+        <result column="coachee_id" property="coacheeId"/>
+        <result column="start_time" property="startTime"/>
+        <result column="end_time" property="endTime"/>
+        <result column="status" property="status"/>
+        <result column="payment_status" property="paymentStatus"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <select id="findSessionById" resultMap="SessionResultMap">
+        SELECT * FROM Sessions WHERE session_id = #{sessionId}
+    </select>
+
+    <insert id="insertSession">
+        INSERT INTO Sessions (coach_id, coachee_id, start_time, end_time, status, payment_status, created_at, updated_at)
+        VALUES (#{coachId}, #{coacheeId}, #{startTime}, #{endTime}, #{status}, #{paymentStatus}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <update id="updateSession">
+        UPDATE Sessions SET
+                            coach_id = #{coachId},
+                            coachee_id = #{coacheeId},
+                            start_time = #{startTime},
+                            end_time = #{endTime},
+                            status = #{status},
+                            payment_status = #{paymentStatus},
+                            updated_at = #{updatedAt}
+        WHERE session_id = #{sessionId}
+    </update>
+
+    <delete id="deleteSession">
+        DELETE FROM Sessions WHERE session_id = #{sessionId}
+    </delete>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.coreonion.mapper.UserActivityMapper">
+    <resultMap id="UserActivityResultMap" type="com.example.coreonion.model.UserActivity">
+        <id column="activity_id" property="activityId"/>
+        <result column="user_id" property="userId"/>
+        <result column="activity" property="activity"/>
+        <result column="timestamp" property="timestamp"/>
+    </resultMap>
+
+    <insert id="insertActivity" parameterType="com.example.coreonion.model.UserActivity">
+        INSERT INTO UserActivities (user_id, activity, timestamp)
+        VALUES (#{userId}, #{activity}, #{timestamp})
+    </insert>
+
+    <select id="findAllActivities" resultMap="UserActivityResultMap">
+        SELECT * FROM UserActivities
+    </select>
+</mapper>

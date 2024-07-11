@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.coreonion.mapper.ProgressMapper">
+    <resultMap id="JournalResultMap" type="com.example.coreonion.model.Journal">
+        <id column="journal_id" property="journalId"/>
+        <result column="coachee_id" property="coacheeId"/>
+        <result column="entry_date" property="entryDate"/>
+        <result column="content" property="content"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <select id="findJournalsByCoacheeId" resultMap="JournalResultMap">
+        SELECT * FROM Journals WHERE coachee_id = #{coacheeId}
+    </select>
+
+    <insert id="insertJournal">
+        INSERT INTO Journals (coachee_id, entry_date, content, created_at, updated_at)
+        VALUES (#{coacheeId}, #{entryDate}, #{content}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <resultMap id="ReportResultMap" type="com.example.coreonion.model.Report">
+        <id column="report_id" property="reportId"/>
+        <result column="coachee_id" property="coacheeId"/>
+        <result column="report_type" property="reportType"/>
+        <result column="content" property="content"/>
+        <result column="created_at" property="createdAt"/>
+        <result column="updated_at" property="updatedAt"/>
+    </resultMap>
+
+    <select id="findReportsByCoacheeId" resultMap="ReportResultMap">
+        SELECT * FROM Reports WHERE coachee_id = #{coacheeId}
+    </select>
+
+    <insert id="insertReport">
+        INSERT INTO Reports (coachee_id, report_type, content, created_at, updated_at)
+        VALUES (#{coacheeId}, #{reportType}, #{content}, #{createdAt}, #{updatedAt})
+    </insert>
+</mapper>
